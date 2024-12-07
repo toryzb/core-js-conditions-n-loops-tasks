@@ -171,45 +171,69 @@ function convertToRomanNumerals(num) {
  */
 function convertNumberToString(numberStr) {
   let result = '';
+  let addSpace = false;
+
   for (let i = 0; i < numberStr.length; i += 1) {
-    if (numberStr[i] === '-') {
-      result += 'minus';
+    switch (numberStr[i]) {
+      case '-':
+        result += 'minus';
+        addSpace = true;
+        break;
+      case '.':
+        result += 'point';
+        addSpace = true;
+        break;
+      case '0':
+        result += 'zero';
+        addSpace = true;
+        break;
+      case '1':
+        result += 'one';
+        addSpace = true;
+        break;
+      case '2':
+        result += 'two';
+        addSpace = true;
+        break;
+      case '3':
+        result += 'three';
+        addSpace = true;
+        break;
+      case '4':
+        result += 'four';
+        addSpace = true;
+        break;
+      case '5':
+        result += 'five';
+        addSpace = true;
+        break;
+      case '6':
+        result += 'six';
+        addSpace = true;
+        break;
+      case '7':
+        result += 'seven';
+        addSpace = true;
+        break;
+      case '8':
+        result += 'eight';
+        addSpace = true;
+        break;
+      case '9':
+        result += 'nine';
+        addSpace = true;
+        break;
+      case ',':
+        result += 'point';
+        addSpace = true;
+        break;
+      default:
+        break;
     }
-    if (numberStr[i] === '.') {
-      result += 'point';
-    }
-    if (numberStr[i] === '0') {
-      result += 'zero';
-    }
-    if (numberStr[i] === '1') {
-      result += 'one';
-    }
-    if (numberStr[i] === '2') {
-      result += 'two';
-    }
-    if (numberStr[i] === '3') {
-      result += 'three';
-    }
-    if (numberStr[i] === '4') {
-      result += 'four';
-    }
-    if (numberStr[i] === '5') {
-      result += 'five';
-    }
-    if (numberStr[i] === '6') {
-      result += 'six';
-    }
-    if (numberStr[i] === '7') {
-      result += 'seven';
-    }
-    if (numberStr[i] === '8') {
-      result += 'eight';
-    }
-    if (numberStr[i] === '9') {
-      result += 'nine';
-    }
-    if (i < numberStr.length - 1) {
+
+    if (addSpace && i < numberStr.length - 1) {
       result += ' ';
+      addSpace = false;
     }
   }
   return result;
@@ -276,8 +300,15 @@ function getIndexOf(str, letter) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  const str = String(num);
+  const strDig = String(digit);
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === strDig) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -293,8 +324,21 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  let totalSum = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    totalSum += arr[i];
+  }
+  let leftSum = 0;
+  let rightSum = totalSum;
+  for (let i = 0; i < arr.length; i += 1) {
+    rightSum -= arr[i];
+    if (leftSum === rightSum) {
+      return i;
+    }
+    leftSum += arr[i];
+  }
+  return -1;
 }
 
 /**
