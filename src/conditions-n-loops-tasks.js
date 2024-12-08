@@ -421,7 +421,7 @@ function getSpiralMatrix(size) {
  *  ]                 ]
  */
 function rotateMatrix(matrix) {
-  const rotateFn = function (mat) {
+  function rotateFn(mat) {
     const n = mat.length;
     const rotatedMatrix = mat;
     for (let i = 0; i < n / 2; i += 1) {
@@ -433,7 +433,7 @@ function rotateMatrix(matrix) {
         rotatedMatrix[j][n - i - 1] = temp;
       }
     }
-  };
+  }
   rotateFn(matrix);
 }
 
@@ -540,47 +540,70 @@ function shuffleChar(str, iterations) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(number) {
-  const digits = [];
-  let temp = number;
-  while (temp > 0) {
-    digits.push(temp % 10);
-    temp = Math.floor(temp / 10);
-  }
+function getNearestBigger(/* number */) {
+  // function getDigits(num) {
+  //   const digits = [];
+  //   while (num > 0) {
+  //     digits.push(num % 10);
+  //     temp = Math.floor(num / 10);
+  //   }
+  // return digits;
+  // };
+  // let digits = getDigits(number);
 
-  const n = digits.length;
+  // const n = digits.length;
 
-  let i = 0;
-  while (i + 1 < n && digits[i] >= digits[i + 1]) {
-    i += 1;
-  }
+  // function findSwapPoint(digits, n) {
+  //   let i = 0;
+  //   while (i + 1 < n && digits[i] >= digits[i + 1]) {
+  //     i++;
+  //   }
+  //   return i;
+  // };
 
-  if (i === n - 1) {
-    return number;
-  }
+  // let i = findSwapPoint(digits, n);
 
-  let j = i + 1;
-  for (let k = i + 2; k < n; k += 1) {
-    if (digits[k] > digits[i] && digits[k] < digits[j]) {
-      j = k;
-    }
-  }
+  // if (i === n - 1) {
+  //   return number;
+  // }
 
-  [digits[i], digits[j]] = [digits[j], digits[i]];
+  // function findMinGreaterDigit(digits, i, n) {
+  //   let j = i + 1;
+  //   for (let k = i + 2; k < n; k++) {
+  //     if (digits[k] > digits[i] && digits[k] < digits[j]) {
+  //       j = k;
+  //     }
+  //   }
+  //   return j;
+  // };
 
-  const left = digits.slice(0, i + 1);
-  const right = digits.slice(i + 1);
-  right.sort((a, b) => a - b);
+  // let j = findMinGreaterDigit(digits, i, n);
 
-  let result = 0;
-  for (let k = left.length - 1; k >= 0; k -= 1) {
-    result = result * 10 + left[k];
-  }
-  for (let k = right.length - 1; k >= 0; k -= 1) {
-    result = result * 10 + right[k];
-  }
+  // function swapDigits(digits, i, j) {
+  //   let temp = digits[i];
+  //   digits[i] = digits[j];
+  //   digits[j] = temp;
+  // };
 
-  return result;
+  // swapDigits(digits, i, j);
+
+  // function sortDigits(digits, i) {
+  //   let right = digits.slice(i + 1);
+  //   right.sort(function sort(a, b) {
+  //     return a - b;
+  //   });
+  //   return digits.slice(0, i + 1).concat(right);
+  // };
+
+  // digits = sortDigits(digits, i);
+
+  // let result = 0;
+  // for (let k = digits.length - 1; k >= 0; k--) {
+  //   result = result * 10 + digits[k];
+  // }
+
+  // return result;
+  throw new Error('Not implemented');
 }
 
 module.exports = {
