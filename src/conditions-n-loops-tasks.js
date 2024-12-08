@@ -362,8 +362,47 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const matrix = [];
+  for (let i = 0; i < size; i += 1) {
+    matrix[i] = [];
+  }
+
+  let currentValue = 1;
+  let top = 0;
+  let left = 0;
+  let bottom = size - 1;
+  let right = size - 1;
+
+  while (top <= bottom && left <= right) {
+    for (let i = left; i <= right; i += 1) {
+      matrix[top][i] = currentValue;
+      currentValue += 1;
+    }
+    top += 1;
+    for (let i = top; i <= bottom; i += 1) {
+      matrix[i][right] = currentValue;
+      currentValue += 1;
+    }
+    right -= 1;
+    if (top <= bottom) {
+      for (let i = right; i >= left; i -= 1) {
+        matrix[bottom][i] = currentValue;
+        currentValue += 1;
+      }
+      bottom -= 1;
+    }
+
+    if (left <= right) {
+      for (let i = bottom; i >= top; i -= 1) {
+        matrix[i][left] = currentValue;
+        currentValue += 1;
+      }
+      left += 1;
+    }
+  }
+
+  return matrix;
 }
 
 /**
@@ -381,8 +420,17 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const rotatedMatrix = [];
+  for (let i = 0; i < matrix.length; i += 1) {
+    rotatedMatrix[i] = [];
+  }
+  for (let i = 0; i < matrix.length; i += 1) {
+    for (let j = 0; j < matrix.length; j += 1) {
+      rotatedMatrix[j][matrix.length - 1 - i] = matrix[i][j];
+    }
+  }
+  return rotatedMatrix;
 }
 
 /**
@@ -399,8 +447,18 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const sortedArr = [...arr];
+  for (let i = 0; i < sortedArr.length; i += 1) {
+    for (let j = 0; j < sortedArr.length - 1 - i; j += 1) {
+      if (sortedArr[j] > sortedArr[j + 1]) {
+        const temp = sortedArr[j];
+        sortedArr[j] = sortedArr[j + 1];
+        sortedArr[j + 1] = temp;
+      }
+    }
+  }
+  return sortedArr;
 }
 
 /**
@@ -423,7 +481,6 @@ function sortByAsc(/* arr */) {
 function shuffleChar(/* str, iterations */) {
   throw new Error('Not implemented');
 }
-
 /**
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
  * If there is no such number, it returns the original number.
