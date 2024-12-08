@@ -420,31 +420,21 @@ function getSpiralMatrix(size) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  // const n = matrix.length;
-
-  // for (let i = 0; i < n; i += 1) {
-  //   for (let j = i + 1; j < n; j += 1) {
-  //     const temp = matrix[i][j];
-  //     matrix[i][j] = matrix[j][i];
-  //     matrix[j][i] = temp;
-  //   }
-  // }
-
-  // for (let i = 0; i < n; i += 1) {
-  //   let left = 0;
-  //   let right = n - 1;
-  //   while (left < right) {
-  //     const temp = matrix[i][left];
-  //     matrix[i][left] = matrix[i][right];
-  //     matrix[i][right] = temp;
-  //     left += 1;
-  //     right -= 1;
-  //   }
-  // }
-
-  // return matrix;
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const rotateFn = function (mat) {
+    const n = mat.length;
+    const rotatedMatrix = mat;
+    for (let i = 0; i < n / 2; i += 1) {
+      for (let j = i; j < n - i - 1; j += 1) {
+        const temp = rotatedMatrix[i][j];
+        rotatedMatrix[i][j] = rotatedMatrix[n - j - 1][i];
+        rotatedMatrix[n - j - 1][i] = rotatedMatrix[n - i - 1][n - j - 1];
+        rotatedMatrix[n - i - 1][n - j - 1] = rotatedMatrix[j][n - i - 1];
+        rotatedMatrix[j][n - i - 1] = temp;
+      }
+    }
+  };
+  rotateFn(matrix);
 }
 
 /**
@@ -462,26 +452,37 @@ function rotateMatrix(/* matrix */) {
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
 function sortByAsc(/* arr */) {
-  // const sortedArr = [...arr];
-  // const n = sortedArr.length;
+  // function partition(param, low, high) {
+  //   const arrCopy = [...param];
+  //   const pivot = arrCopy[high];
+  //   let i = low - 1;
 
-  // for (let i = 0; i < n - 1; i += 1) {
-  //   let minIndex = i;
-
-  //   for (let j = i + 1; j < n; j += 1) {
-  //     if (sortedArr[j] < sortedArr[minIndex]) {
-  //       minIndex = j;
+  //   for (let j = low; j < high; j += 1) {
+  //     if (arrCopy[j] < pivot) {
+  //       i += 1;
+  //       const temp = arrCopy[i];
+  //       arrCopy[i] = arrCopy[j];
+  //       arrCopy[j] = temp;
   //     }
   //   }
 
-  //   if (minIndex !== i) {
-  //     const temp = sortedArr[i];
-  //     sortedArr[i] = sortedArr[minIndex];
-  //     sortedArr[minIndex] = temp;
+  //   const temp = arrCopy[i + 1];
+  //   arrCopy[i + 1] = arrCopy[high];
+  //   arrCopy[high] = temp;
+
+  //   return i + 1;
+  // }
+
+  // function quickSort(arg, low, high) {
+  //   if (low < high) {
+  //     const pivotIndex = partition(arg, low, high);
+  //     quickSort(arg, low, pivotIndex - 1);
+  //     quickSort(arg, pivotIndex + 1, high);
   //   }
   // }
 
-  // return sortedArr;
+  // quickSort(arr, 0, arr.length - 1);
+  // return arr;
   throw new Error('Not implemented');
 }
 
@@ -502,8 +503,25 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let result = str;
+
+  for (let i = 0; i < iterations; i += 1) {
+    let evenChars = '';
+    let oddChars = '';
+
+    for (let j = 0; j < result.length; j += 1) {
+      if (j % 2 === 0) {
+        evenChars += result[j];
+      } else {
+        oddChars += result[j];
+      }
+    }
+
+    result = evenChars + oddChars;
+  }
+
+  return result;
 }
 /**
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
