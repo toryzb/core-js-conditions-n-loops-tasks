@@ -451,39 +451,38 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  // function partition(param, low, high) {
-  //   const arrCopy = [...param];
-  //   const pivot = arrCopy[high];
-  //   let i = low - 1;
+function sortByAsc(arr) {
+  function swap(arg, i, j) {
+    const arrs = arg;
+    const temp = arrs[i];
+    arrs[i] = arrs[j];
+    arrs[j] = temp;
+  }
 
-  //   for (let j = low; j < high; j += 1) {
-  //     if (arrCopy[j] < pivot) {
-  //       i += 1;
-  //       const temp = arrCopy[i];
-  //       arrCopy[i] = arrCopy[j];
-  //       arrCopy[j] = temp;
-  //     }
-  //   }
+  function partition(param, low, high) {
+    const pivot = param[high];
+    let i = low - 1;
 
-  //   const temp = arrCopy[i + 1];
-  //   arrCopy[i + 1] = arrCopy[high];
-  //   arrCopy[high] = temp;
+    for (let j = low; j < high; j += 1) {
+      if (param[j] < pivot) {
+        i += 1;
+        swap(param, i, j);
+      }
+    }
 
-  //   return i + 1;
-  // }
+    swap(param, i + 1, high);
+    return i + 1;
+  }
 
-  // function quickSort(arg, low, high) {
-  //   if (low < high) {
-  //     const pivotIndex = partition(arg, low, high);
-  //     quickSort(arg, low, pivotIndex - 1);
-  //     quickSort(arg, pivotIndex + 1, high);
-  //   }
-  // }
+  function quickSort(args, low, high) {
+    if (low < high) {
+      const pivotIndex = partition(arr, low, high);
 
-  // quickSort(arr, 0, arr.length - 1);
-  // return arr;
-  throw new Error('Not implemented');
+      quickSort(args, low, pivotIndex - 1);
+      quickSort(args, pivotIndex + 1, high);
+    }
+  }
+  return quickSort(arr, 0, arr.length - 1);
 }
 
 /**
@@ -543,25 +542,26 @@ function shuffleChar(str, iterations) {
 function getNearestBigger(/* number */) {
   // function getDigits(num) {
   //   const digits = [];
-  //   while (num > 0) {
-  //     digits.push(num % 10);
-  //     temp = Math.floor(num / 10);
+  //   let nums = num;
+  //   while (nums > 0) {
+  //     digits.push(nums % 10);
+  //     nums = Math.floor(nums / 10);
   //   }
-  // return digits;
-  // };
-  // let digits = getDigits(number);
+  //   return digits;
+  // }
 
+  // const digits = getDigits(number);
   // const n = digits.length;
 
-  // function findSwapPoint(digits, n) {
+  // function findSwapPoint(digit, m) {
   //   let i = 0;
-  //   while (i + 1 < n && digits[i] >= digits[i + 1]) {
-  //     i++;
+  //   while (i + 1 < m && digit[i] >= digit[i + 1]) {
+  //     i += 1;
   //   }
   //   return i;
-  // };
+  // }
 
-  // let i = findSwapPoint(digits, n);
+  // const i = findSwapPoint(digits, n);
 
   // if (i === n - 1) {
   //   return number;
@@ -569,37 +569,35 @@ function getNearestBigger(/* number */) {
 
   // function findMinGreaterDigit(digits, i, n) {
   //   let j = i + 1;
-  //   for (let k = i + 2; k < n; k++) {
+  //   for (let k = i + 2; k < n; k += 1) {
   //     if (digits[k] > digits[i] && digits[k] < digits[j]) {
   //       j = k;
   //     }
   //   }
   //   return j;
-  // };
+  // }
 
-  // let j = findMinGreaterDigit(digits, i, n);
+  // const j = findMinGreaterDigit(digits, i, n);
 
   // function swapDigits(digits, i, j) {
-  //   let temp = digits[i];
+  //   const temp = digits[i];
   //   digits[i] = digits[j];
   //   digits[j] = temp;
-  // };
+  // }
 
   // swapDigits(digits, i, j);
 
   // function sortDigits(digits, i) {
-  //   let right = digits.slice(i + 1);
-  //   right.sort(function sort(a, b) {
-  //     return a - b;
-  //   });
+  //   const right = digits.slice(i + 1);
+  //   right.sort((a, b) => a - b);
   //   return digits.slice(0, i + 1).concat(right);
-  // };
+  // }
 
-  // digits = sortDigits(digits, i);
+  // const sortedDigits = sortDigits(digits, i);
 
   // let result = 0;
-  // for (let k = digits.length - 1; k >= 0; k--) {
-  //   result = result * 10 + digits[k];
+  // for (let k = sortedDigits.length - 1; k >= 0; k -= 1) {
+  //   result = result * 10 + sortedDigits[k];
   // }
 
   // return result;
