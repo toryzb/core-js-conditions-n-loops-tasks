@@ -539,69 +539,57 @@ function shuffleChar(str, iterations) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  // function getDigits(num) {
-  //   const digits = [];
-  //   let nums = num;
-  //   while (nums > 0) {
-  //     digits.push(nums % 10);
-  //     nums = Math.floor(nums / 10);
-  //   }
-  //   return digits;
-  // }
+function getNearestBigger(number) {
+  const digits = [];
+  let temp = number;
 
-  // const digits = getDigits(number);
-  // const n = digits.length;
+  let index = 0;
+  while (temp > 0) {
+    digits[index] = temp % 10;
+    temp = Math.floor(temp / 10);
+    index += 1;
+  }
 
-  // function findSwapPoint(digit, m) {
-  //   let i = 0;
-  //   while (i + 1 < m && digit[i] >= digit[i + 1]) {
-  //     i += 1;
-  //   }
-  //   return i;
-  // }
+  for (let i = 0, j = digits.length - 1; i < j; i += 1, j -= 1) {
+    const tempDigit = digits[i];
+    digits[i] = digits[j];
+    digits[j] = tempDigit;
+  }
 
-  // const i = findSwapPoint(digits, n);
+  let i = digits.length - 2;
+  while (i >= 0 && digits[i] >= digits[i + 1]) {
+    i -= 1;
+  }
 
-  // if (i === n - 1) {
-  //   return number;
-  // }
+  if (i === -1) {
+    return number;
+  }
 
-  // function findMinGreaterDigit(digits, i, n) {
-  //   let j = i + 1;
-  //   for (let k = i + 2; k < n; k += 1) {
-  //     if (digits[k] > digits[i] && digits[k] < digits[j]) {
-  //       j = k;
-  //     }
-  //   }
-  //   return j;
-  // }
+  let j = digits.length - 1;
+  while (digits[j] <= digits[i]) {
+    j -= 1;
+  }
 
-  // const j = findMinGreaterDigit(digits, i, n);
+  const tempDigit = digits[i];
+  digits[i] = digits[j];
+  digits[j] = tempDigit;
 
-  // function swapDigits(digits, i, j) {
-  //   const temp = digits[i];
-  //   digits[i] = digits[j];
-  //   digits[j] = temp;
-  // }
+  for (let k = i + 1; k < digits.length - 1; k += 1) {
+    for (let l = k + 1; l < digits.length; l += 1) {
+      if (digits[k] > digits[l]) {
+        const temporal = digits[k];
+        digits[k] = digits[l];
+        digits[l] = temporal;
+      }
+    }
+  }
 
-  // swapDigits(digits, i, j);
+  let result = 0;
+  for (let m = 0; m < digits.length; m += 1) {
+    result = result * 10 + digits[m];
+  }
 
-  // function sortDigits(digits, i) {
-  //   const right = digits.slice(i + 1);
-  //   right.sort((a, b) => a - b);
-  //   return digits.slice(0, i + 1).concat(right);
-  // }
-
-  // const sortedDigits = sortDigits(digits, i);
-
-  // let result = 0;
-  // for (let k = sortedDigits.length - 1; k >= 0; k -= 1) {
-  //   result = result * 10 + sortedDigits[k];
-  // }
-
-  // return result;
-  throw new Error('Not implemented');
+  return result;
 }
 
 module.exports = {
