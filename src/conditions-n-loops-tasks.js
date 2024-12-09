@@ -301,13 +301,17 @@ function getIndexOf(str, letter) {
  *  12345, 6    => false
  */
 function isContainNumber(num, digit) {
-  const str = String(num);
-  const strDig = String(digit);
-  for (let i = 0; i < str.length; i += 1) {
-    if (str[i] === strDig) {
+  let number = num;
+  number = Math.abs(number);
+
+  while (number > 0) {
+    const currentDigit = number % 10;
+    if (currentDigit === digit) {
       return true;
     }
+    number = Math.floor(number / 10);
   }
+
   return false;
 }
 
@@ -504,12 +508,13 @@ function sortByAsc(arr) {
  */
 function shuffleChar(str, iterations) {
   let result = str;
+  const len = result.length;
 
   for (let i = 0; i < iterations; i += 1) {
     let evenChars = '';
     let oddChars = '';
 
-    for (let j = 0; j < result.length; j += 1) {
+    for (let j = 0; j < len; j += 1) {
       if (j % 2 === 0) {
         evenChars += result[j];
       } else {
